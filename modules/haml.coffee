@@ -2,7 +2,6 @@ fs = require('fs')
 path = require('path')
 {log, logs, loge, assert} = require('../util')
 {exec} = require('child_process')
-path = require('path')
 fs = require('fs')
 sys = require('util')
 

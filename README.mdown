@@ -1,0 +1,17 @@
+# Spinegen
+
+Use Spinegen to quickly bootstrap new [Spine](http://spinejs.com/) applications.
+
+## Usage
+
+Link `spinegen` somewhere in your `$PATH`. 
+
+Run command:
+
+`spinegen use <module_name>`
+
+## Modules
+
+Currently available modules:
+
+- `haml` Use .haml as templating language

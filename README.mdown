@@ -14,4 +14,5 @@ Run command:
 
 Currently available modules:
 
-- `haml` Use .haml as templating language
+- `haml` Allows using `.haml` files as views
+- `bootstrap` Downloads [Twitter Bootstrap](http://twitter.github.com/bootstrap/) and patches `index.html` to use it

@@ -34,7 +34,7 @@ patch = ->
     offset = line.indexOf('<link rel="stylesheet"')
     if offset != -1
       patch_line = ' ' + patch_line for j in [1..offset]
-      lines.splice(i+1, 0, patch_line)
+      lines.splice(i, 0, patch_line)
       success = true
       break
   loge 'failed to patch index.html' unless success

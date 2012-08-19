@@ -4,7 +4,7 @@ Use Spinegen to quickly bootstrap new [Spine](http://spinejs.com/) applications.
 
 ## Usage
 
-Link `spinegen` somewhere in your `$PATH`. 
+Link `spinegen` somewhere in your `$PATH`.
 
 Run command:
 
@@ -15,4 +15,5 @@ Run command:
 Currently available modules:
 
 - `haml` Allows using `.haml` files as views
+- `jade` [Jade](http://jade-lang.com) views
 - `bootstrap` Downloads [Twitter Bootstrap](http://twitter.github.com/bootstrap/) and patches `index.html` to use it

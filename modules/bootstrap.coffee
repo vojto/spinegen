@@ -5,7 +5,6 @@ path = require('path')
 fs = require('fs')
 sys = require('util')
 
-
 bootstrap = ->
   log 'downloading'
   exec path.join(__dirname, 'bootstrap.sh'), (err, stdout, stderr) ->

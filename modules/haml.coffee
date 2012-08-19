@@ -1,39 +1,22 @@
-fs = require('fs')
 path = require('path')
-{log, logs, loge, assert} = require('../util')
-{exec} = require('child_process')
+{log, loge, assert} = require('../util')
 fs = require('fs')
-sys = require('util')
 
-haml = ->
-  log 'using haml'
-  cwd = process.cwd()
-  log cwd
-  package_filename = path.join(cwd, 'package.json')
-  try
-    data = fs.readFileSync(package_filename, 'utf8')
-  catch error
-    loge 'cannot read ./package.json'
-    return
-  packages = JSON.parse(data)
-  assert packages.dependencies, 'package.json should contain dependencies'
-  packages.dependencies['hem-haml-coffee'] = '*'
-  data = JSON.stringify(packages, null, 2)
-  fs.writeFileSync(package_filename, data, 'utf8')
+Generator = require('./generator')
 
-  log 'creating slug.js'
-  slug_filename = path.join(cwd, 'slug.js')
-  if path.existsSync(slug_filename)
-    loge 'please remove you current slug.js before installing haml'
-    return
+class Haml extends Generator
+  @haml: ->
+    cwd = process.cwd()
 
-  code = "var argv = process.argv.slice(2)\nrequire('hem-haml-coffee').exec(argv[0])\n"
-  fs.writeFileSync(slug_filename, code, 'utf8')
+    filename = path.join cwd, 'package.json'
+    Generator.patch_json filename, (packages) ->
+      assert packages.dependencies, 'package.json should contain dependencies'
+      packages.dependencies['hem-haml-coffee'] = '*'
 
-  log 'installing dependencies'
-  exec 'npm install .', (err, stdout, stderr) ->
-    assert !err, err
-    sys.puts(stdout)
-    logs 'finished'
+    slug = "var argv = process.argv.slice(2)\nrequire('hem-haml-coffee').exec(argv[0])\n"
+    filename = path.join cwd, 'slug.js'
+    Generator.create_file filename, slug
 
-module.exports = haml
+    Generator.install_npm()
+
+module.exports = Haml.haml

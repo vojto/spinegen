@@ -31,11 +31,24 @@ class Generator
 
     fs.writeFileSync(filepath, patched_data, 'utf8')
 
+  @create_dir: (dir) ->
+    filepath = path.join(process.cwd(), dir)
+    exists = fs.existsSync(filepath)
+    return if exists
+    fs.mkdirSync(filepath)
+
   @create_file: (filename, content) ->
     filepath = path.join(process.cwd(), filename)
-    if fs.existsSync(filepath)
-      loge "can't create #{filepath}"
-      return
+    return if fs.existsSync(filepath)
     fs.writeFileSync(filepath, content, 'utf8')
+  
+  @add_setup_require: (module) ->
+    filepath = path.join(process.cwd(), 'app/lib/setup.coffee')
+    # return unless fs.existsSync(filepath)
+    data = fs.readFileSync(filepath, 'utf8')
+    line = "require('#{module}')"
+    if data.indexOf(line) == -1
+      data += "\n#{line}"
+      fs.writeFileSync(filepath, data, 'utf8')
 
 module.exports = Generator
